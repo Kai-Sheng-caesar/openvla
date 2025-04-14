@@ -29,3 +29,9 @@ git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
 cd LIBERO
 pip install -e .
 ```
+### 出现报错
+```
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+torch 2.5.1 requires sympy==1.13.1, but you have sympy 1.13.3 which is incompatible.
+```
+> 需要更换sympy库版本为1.13.1与torch2.5.1适配
