@@ -1,4 +1,4 @@
-# OpenVLA复现及微调
+# OpenVLA复现及LIBERO数据集上微调
 ## 配置环境
 
 ### 克隆OpenVLA仓库
@@ -23,13 +23,27 @@ pip install packaging ninja
 ninja --version; echo $?  # Verify Ninja --> should return exit code "0"
 pip install "flash-attn==2.5.5" --no-build-isolation
 ```
+> （待完成）
+
+> 执行pip install -e .时报错无法连接github上的dlimp_openvla
+
+> 后续Flash Attention进行安装也报错
+
+> 对应cuda版本为12.2，尝试手动安装
+
 ### 克隆LIBERO仓库
 ```
 git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
 cd LIBERO
 pip install -e .
 ```
-### 出现报错
+
+### 安装其余LEBERO相关库
+```
+cd openvla
+pip install -r experiments/robot/libero/libero_requirements.txt
+```
+> 发现出现如下报错
 ```
 ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
 torch 2.5.1 requires sympy==1.13.1, but you have sympy 1.13.3 which is incompatible.
