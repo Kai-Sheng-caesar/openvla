@@ -27,6 +27,8 @@ pip install "flash-attn==2.5.5" --no-build-isolation
 
 > 执行pip install -e .时报错无法连接github上的dlimp_openvla
 
+> 采取手动下载https://github.com/moojink/dlimp_openvla 进行pip install -e .
+
 > 后续Flash Attention进行安装也报错
 
 > 对应cuda版本为12.2，尝试手动安装
