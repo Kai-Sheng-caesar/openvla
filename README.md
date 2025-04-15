@@ -23,13 +23,13 @@ pip install packaging ninja
 ninja --version; echo $?  # Verify Ninja --> should return exit code "0"
 pip install "flash-attn==2.5.5" --no-build-isolation
 ```
-> （待完成）
+> 对于无法连接到github有以下方法
 > 
 > 执行`cd openvla`，`pip install -e .`时报错无法连接github上的dlimp_openvla
 >
 > 1、添加本地代理
 > 
-> 2、采取国内镜像站kkgithub下载https://github.com/moojink/dlimp_openvla 进行`pip install -e .`
+> 2、手动下载https://github.com/moojink/dlimp_openvla 进行`pip install -e .`
 > 
 > 后续Flash Attention 2进行安装也报错
 > 
@@ -38,6 +38,12 @@ pip install "flash-attn==2.5.5" --no-build-isolation
 > 原本要求的flash_attn_2.5.5对应cuda版本为12.2，尝试使用符合版本的2.7.3
 >
 > 由于无法连接到github，尝试手动安装whl进行编译
+>
+> 3、采用国内镜像站kkgithub、hf.mirror等国内镜像源进行`pip install -e .`
+>
+> 采用第3种方法完成了flash_attn_2.7.3的安装
+>
+> openvla中的`pip install -e .`仍待运行
 
 ### 克隆LIBERO仓库
 ```
