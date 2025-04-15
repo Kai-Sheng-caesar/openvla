@@ -29,7 +29,7 @@ pip install "flash-attn==2.5.5" --no-build-isolation
 >
 > 1、添加本地代理
 > 
-> 2、采取手动下载https://github.com/moojink/dlimp_openvla 进行`pip install -e .`
+> 2、采取国内镜像站kkgithub下载https://github.com/moojink/dlimp_openvla 进行`pip install -e .`
 > 
 > 后续Flash Attention 2进行安装也报错
 > 
