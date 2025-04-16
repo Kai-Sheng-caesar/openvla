@@ -39,7 +39,7 @@ pip install "flash-attn==2.5.5" --no-build-isolation
 >
 > 由于无法连接到github，尝试手动安装whl进行编译
 >
-> 3、采用国内镜像站kkgithub、hf.mirror等国内镜像源进行`pip install -e .`
+> 3、编辑`pyproject.toml`或者`setup.py`中的下载链接，采用国内镜像站kkgithub、hf.mirror等国内镜像源进行`pip install -e .`
 >
 > 采用第3种方法完成了flash_attn_2.7.3的安装
 >
