@@ -71,6 +71,9 @@ torch 2.5.1 requires sympy==1.13.1, but you have sympy 1.13.3 which is incompati
 pip install sympy==1.13.1
 ```
 
+### 测试基础的opwnvla-7b模型，运行官方示例test.py
+
+
 ### 待完成
 ### 下载libero-spatial数据集
 
