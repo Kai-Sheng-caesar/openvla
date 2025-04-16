@@ -44,6 +44,10 @@ pip install "flash-attn==2.5.5" --no-build-isolation
 > 采用第3种方法完成了flash_attn_2.7.3的安装
 >
 > openvla中的`pip install -e .`运行完毕
+>
+> 后续...
+> 
+> flash_attn_2.7.3后面运行`test.py`测试代码报错，事实证明要坚持原作者的环境
 
 ### 克隆LIBERO仓库
 ```
