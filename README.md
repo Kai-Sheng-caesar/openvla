@@ -121,13 +121,71 @@ print(action)
 >输出为`[-0.0026692 0.00151844 -0.01115391 0.04775569 0.05347844 -0.02746728 0.99607843]`
 >输出范围为[-1,1]，每个维度都划分了256个离散区间，1-3输出对应x,y,z的相对移动，4-6输出对应x,y,z的相对旋转，7输出对应夹爪开关及力度
 >针对不同数据集，划分总区间不同，参照`unnorm_key="bridge_orig"`，但是`unnorm_key="bridge_orig"`对应的总区间我没有在文章或代码中找到，期待作者答复
-<img src="result.png" width="80%">
+<img src="question.png" width="70%">
 
-## 待完成
-### 下载libero-spatial（空间位置）数据集用以后续复现及微调工作
+## 验证官方openvla-7b-finetuned-libero-spatial模型，进一步复现
+### 下载openvla-7b-finetuned-libero-spatial模型及libero-spatial（空间位置）数据集用以后续复现及微调工作
+> 下载官方修改后的libero-spatial数据集`libero-spatial-no-noops`
+> 运行下列代码：
+```
+python experiments/robot/libero/run_libero_eval.py \
+  --model_family openvla \
+  --pretrained_checkpoint "openvla-7b-finetuned-libero-spatial" \
+  --task_suite_name libero_spatial \
+  --center_crop True
+```
+> 遇到的各种报错及解决方法：
+> 
+> 1、服务器连接不上huggingface
+> 
+> 改成加载本地模型参数，修改openvla/experiments/robot/openvla_utils.py的get_vla(cfg)和get_processor(cfg)函数：
+```
+def get_vla(cfg):
+        // ...
+        vla = AutoModelForVision2Seq.from_pretrained(
+            cfg.pretrained_checkpoint,
+            local_files_only=True
+            #attn_implementation="flash_attention_2",
+            #torch_dtype=torch.bfloat16,
+            #load_in_8bit=cfg.load_in_8bit,
+            #load_in_4bit=cfg.load_in_4bit,
+            #low_cpu_mem_usage=True,
+            #trust_remote_code=True,
+        )
+        // ...
+    
+    // ...
+    def get_processor(cfg):
+        """Get VLA model's Hugging Face processor."""
+        processor = AutoProcessor.from_pretrained(
+                  cfg.pretrained_checkpoint, 
+                  local_files_only=True,
+                  # trust_remote_code=True
+        )
+        return processor
+```
+> 2、数据集位置
+>
+> 数据集位置下载到默认位置`libero/libero/datasets`
+>
+> 3、服务器运行无法输入y/n导致报错
+>
+> 在`libero/libero/_init_.py`中取消下面代码中的输入部分，改为`answer = "n"`：
+```
+if not os.path.exists(config_file):
+    # Create a default config file
 
-## 进一步复现
+    default_path_dict = get_default_path_dict()
+    # answer = input(
+    #     "Do you want to specify a custom path for the dataset folder? (Y/N): "
+    # ).lower()
+    answer = "n"
+```
+> 4、类型不匹配报错，成功率一直为0.00%
+
+
 ### 使用官方针对上述数据集微调的openvla-7b-finetuned-libero-spatial模型进行验证
 
+## 待完成
 ## 自己尝试微调
 ### 在libero-spatial数据集上自己尝试使用LORA微调官方openvla-7b模型
