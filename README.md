@@ -124,8 +124,11 @@ print(action)
 <img src="question.png" width="70%">
 
 ## 验证官方openvla-7b-finetuned-libero-spatial模型，进一步复现
+
 ### 下载openvla-7b-finetuned-libero-spatial模型及libero-spatial（空间位置）数据集用以后续复现及微调工作
 > 下载官方修改后的libero-spatial数据集`libero-spatial-no-noops`
+
+### 使用官方针对上述数据集微调的openvla-7b-finetuned-libero-spatial模型进行验证
 > 运行下列代码：
 ```
 python experiments/robot/libero/run_libero_eval.py \
@@ -182,9 +185,20 @@ if not os.path.exists(config_file):
     answer = "n"
 ```
 > 4、类型不匹配报错，成功率一直为0.00%
+<img src="type_error.png" width="80%">
 
-
-### 使用官方针对上述数据集微调的openvla-7b-finetuned-libero-spatial模型进行验证
+> 修改openvla_utils.py的get_vla_action函数，倒数第三行：
+> 
+> `inputs = processor(prompt, image).to(DEVICE, dtype=torch.float32)`
+>
+> 5、`openvla/prismatic/extern/hf/modeling_prismatic.py`报错，修改如下:
+```
+if not torch.all(input_ids[:, -1] == 29871):
+    #input_ids = torch.cat(
+    #    (input_ids, torch.unsqueeze(torch.Tensor([29871]).long(), dim=0).to(input_ids.device)), dim=1
+    #)
+     input_ids[:, -1] = 29871 
+```
 
 ## 待完成
 ## 自己尝试微调
