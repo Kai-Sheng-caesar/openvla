@@ -200,6 +200,6 @@ if not torch.all(input_ids[:, -1] == 29871):
      input_ids[:, -1] = 29871 
 ```
 
-## 待完成
 ## 自己尝试微调
 ### 在libero-spatial数据集上自己尝试使用LORA微调官方openvla-7b模型
+> 参数设置batch_size=8，使用rank=32进行LORA微调
